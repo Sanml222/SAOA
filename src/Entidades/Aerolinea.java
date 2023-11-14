@@ -151,11 +151,20 @@ public class Aerolinea {
 
     }
 
+    public List <Vuelo> vuelosPorPiloto(String licencia){
 
-    
+        List <Vuelo> vuelosPorPiloto = new ArrayList<Vuelo>();
 
-    
-    
+        for(Vuelo vuelo: vuelos){
 
+          if(licencia.equals(vuelo.getPiloto().getLicencia())){
+
+            vuelosPorPiloto.add(vuelo);
+
+          }
+        }
+        
+        return vuelosPorPiloto;
+    }
 
 }
