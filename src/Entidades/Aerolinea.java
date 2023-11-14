@@ -8,6 +8,7 @@ public class Aerolinea {
 
     private String nombre;
     private List <Piloto> pilotos;
+    private List <Vuelo> vuelos;
 
     public Aerolinea(String nombre1){
 
@@ -15,6 +16,7 @@ public class Aerolinea {
         // se crea una lista de pilotos vacia
         this.pilotos = new ArrayList<Piloto>();
         // se crea una lista de vuelos vacia
+        this.vuelos = new ArrayList<Vuelo>();
 
     }
     public String getNombre(){
@@ -26,7 +28,7 @@ public class Aerolinea {
         this.nombre = nombre1;
     }
 
-    public List<Piloto> getPilotos(){
+    public List <Piloto> getPilotos(){
 
      return pilotos;
     }
@@ -34,6 +36,15 @@ public class Aerolinea {
         // a la lista de pilotos le agregamos un nuevo piloto
         this.pilotos.add(nuevoPiloto);
     }
+    
+    public List <Vuelo> getVuelos(){
+
+        return vuelos;
+    }
+    
+    
+
+    
     
 
 
