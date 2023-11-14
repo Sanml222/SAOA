@@ -1,8 +1,14 @@
 package Entidades;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Vuelo {
+
+    public final List <String> estados = new ArrayList <String> (Arrays.asList("Programado","En Aire","Aterrizado","Cancelado" ));
+
     private String tipoRuta;
     private Aerolinea aerolinea;
     private CategoriaVuelo categoria;
@@ -14,11 +20,12 @@ public class Vuelo {
     private Aeropuerto origen;
     private Aeropuerto destino;
     private Torre torreControl;
+    private Torre torreControlDestino;
     private int numeroPasajeros;
     private String estado;
     private Avion avion;
 
-    public Vuelo(String tipoRuta1,Aerolinea aerolinea1,CategoriaVuelo categoria1,Piloto piloto1,String terminal1, String puertaEmbarque1, LocalDateTime fechaDespegue1, LocalDateTime fechaAterrizaje1, Aeropuerto origen1, Aeropuerto destino1, Torre torreControl1, int numpasajeros1, String estado1, Avion avion1){
+    public Vuelo(String tipoRuta1,Aerolinea aerolinea1,CategoriaVuelo categoria1,Piloto piloto1,String terminal1, String puertaEmbarque1, LocalDateTime fechaDespegue1, LocalDateTime fechaAterrizaje1, Aeropuerto origen1, Aeropuerto destino1, Torre torreControl1, Torre torreControlDestino1, int numpasajeros1, String estado1, Avion avion1){
 
         this.tipoRuta = tipoRuta1;
         this.aerolinea = aerolinea1;
@@ -31,6 +38,7 @@ public class Vuelo {
         this.origen = origen1;
         this.destino = destino1;
         this.torreControl = torreControl1;
+        this.torreControlDestino = torreControlDestino1;
         this.numeroPasajeros = numpasajeros1;
         this.estado = estado1;
         this.avion = avion1;
@@ -122,6 +130,14 @@ public class Vuelo {
 
     public void setTorreControl(Torre torreControl) {
         this.torreControl = torreControl;
+    }
+
+    public Torre getTorreControlDestino() {
+        return torreControlDestino;
+    }
+
+    public void setTorreControlDestino(Torre torreControldestino1) {
+        this.torreControlDestino = torreControldestino1;
     }
 
     public int getNumeroPasajeros() {
