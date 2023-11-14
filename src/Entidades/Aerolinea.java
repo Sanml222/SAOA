@@ -147,6 +147,10 @@ public class Aerolinea {
 
         vuelos.add(nuevoVuelo);
 
+        torreControl.asignarVuelo(nuevoVuelo);
+
+        torreControlDestino.asignarVuelo(nuevoVuelo);
+
         return nuevoVuelo;
 
     }
@@ -163,7 +167,7 @@ public class Aerolinea {
 
           }
         }
-        
+
         return vuelosPorPiloto;
     }
 
