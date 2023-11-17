@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import Entidades.Aerolinea;
 import Entidades.Aeropuerto;
@@ -30,43 +29,40 @@ public class App {
         this.ubicaciones = new ArrayList<Ubicacion>();
     }
 
-
-    public static void main(String[] args) {
-        // Creamos objetos básicos para la aplicación.
-        App app = new App();
-
+    public void cargarDatos()
+    {
         // Creamos tres ubicaciones.
         Ubicacion ubicacion1 = new Ubicacion("4.7016", "-74.1469", "Bogotá", "Av. El Dorado #103-9, Fontibón");
         Ubicacion ubicacion2 = new Ubicacion("4.4527", "-75.7664", "Armenia", "Cl. 23 #22-08, Armenia, El Eden, Armenia, Quindío");
         Ubicacion ubicacion3 = new Ubicacion("4.8126", "-75.7395", "Pereira", "Km 4 Vía Cerritos, Pereira, Risaralda");
-        app.ubicaciones.add(ubicacion1);
-        app.ubicaciones.add(ubicacion2);
-        app.ubicaciones.add(ubicacion3);
+        this.ubicaciones.add(ubicacion1);
+        this.ubicaciones.add(ubicacion2);
+        this.ubicaciones.add(ubicacion3);
 
         // Creamos tres aviones.
         Avion avion1 = new Avion(246, "Boeig", "787-9");
         Avion avion2 = new Avion(364, "Boeig", "777");
         Avion avion3 = new Avion(288, "Airbus", "A330");
-        app.aviones.add(avion1);
-        app.aviones.add(avion2);
-        app.aviones.add(avion3);
+        this.aviones.add(avion1);
+        this.aviones.add(avion2);
+        this.aviones.add(avion3);
 
         // Creamos tres torres.
         Torre torre1 = new Torre(1, ubicacion1, "eldorado@aeropuerto.gov.co", "1234567");
         Torre torre2 = new Torre(2, ubicacion2, "eleden@aeropuerto.go.co", "7654321");
         Torre torre3 = new Torre(3, ubicacion3, "matecana@aeropuerto.gov.co", "135792468");
-        app.torres.add(torre1);
-        app.torres.add(torre2);
-        app.torres.add(torre3);
+        this.torres.add(torre1);
+        this.torres.add(torre2);
+        this.torres.add(torre3);
 
 
         // Creamos las categorías de los vuelos.
         CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
         CategoriaVuelo categoriaVuelo2 = new CategoriaVuelo("Carga");
         CategoriaVuelo categoriaVuelo3 = new CategoriaVuelo("Privado");
-        app.categoriasVuelo.add(categoriaVuelo1);
-        app.categoriasVuelo.add(categoriaVuelo2);
-        app.categoriasVuelo.add(categoriaVuelo3);
+        this.categoriasVuelo.add(categoriaVuelo1);
+        this.categoriasVuelo.add(categoriaVuelo2);
+        this.categoriasVuelo.add(categoriaVuelo3);
 
         // Creamos pilotos.
         Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
@@ -76,84 +72,84 @@ public class App {
         Piloto piloto5 = new Piloto("Pedro Lopez", "357924681", "357924681", categoriaVuelo1);
         Piloto piloto6 = new Piloto("Juan Martinez", "468135792", "468135792", categoriaVuelo2);
         Piloto piloto7 = new Piloto("Maria Perez", "579246813", "579246813", categoriaVuelo3);
-        app.pilotos.add(piloto1);
-        app.pilotos.add(piloto2);
-        app.pilotos.add(piloto3);
-        app.pilotos.add(piloto4);   
-        app.pilotos.add(piloto5);
-        app.pilotos.add(piloto6);
-        app.pilotos.add(piloto7);
+        this.pilotos.add(piloto1);
+        this.pilotos.add(piloto2);
+        this.pilotos.add(piloto3);
+        this.pilotos.add(piloto4);   
+        this.pilotos.add(piloto5);
+        this.pilotos.add(piloto6);
+        this.pilotos.add(piloto7);
 
         // Creamos Aerolineas.
         Aerolinea aerolinea1 = new Aerolinea("Avianca");
         Aerolinea aerolinea2 = new Aerolinea("LATAM");
         Aerolinea aerolinea3 = new Aerolinea("Viva Colombia");
-        app.aerolineas.add(aerolinea1);
-        app.aerolineas.add(aerolinea2);
-        app.aerolineas.add(aerolinea3);
+        this.aerolineas.add(aerolinea1);
+        this.aerolineas.add(aerolinea2);
+        this.aerolineas.add(aerolinea3);
 
         // Creamos Aeropuertos.
         Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", ubicacion1);
         Aeropuerto aeropuerto2 = new Aeropuerto("El Eden", ubicacion2);
         Aeropuerto aeropuerto3 = new Aeropuerto("Matecana", ubicacion3);
-        app.aeropuertos.add(aeropuerto1);
-        app.aeropuertos.add(aeropuerto2);
-        app.aeropuertos.add(aeropuerto3);
+        this.aeropuertos.add(aeropuerto1);
+        this.aeropuertos.add(aeropuerto2);
+        this.aeropuertos.add(aeropuerto3);
 
-        // Valor opcion de salida
-        int salir = 0;
-        while (salir == 0) {
-            // Mostramos el menú de opciones de la aplicación.
-            System.out.println("Menú de opciones:");
-            // Imprimir listado de operaciones.
-            System.out.println("1. Programar un vuelo.");     // 1. Programar un vuelo.
-           
-            System.out.println("9. Mostrar número de vuelos programados.");     // 9. Mostrar número de vuelos programados.
-            System.out.println("10. Mostrar número de vuelos cancelados.");     // 10. Mostrar número de vuelos cancelados.
-            System.out.println("11. Mostrar número de vuelos en operados.");     // 11. Mostrar número de vuelos en operados.
-            System.out.println("\n0. Salir.");     // 0. Salir.
+        // agregamos las torres a los aeropuertos.
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto2.agregarTorre(torre2);
+        aeropuerto3.agregarTorre(torre3);
+    }
 
-            // Solicitamos la opción al usuario.
-            Scanner scanner = new Scanner(System.in);
-            scanner.useDelimiter("\n");
-            System.out.println("Ingrese la opción: ");
-            int opcion = scanner.nextInt();
-
-            // Ejecutamos la opción seleccionada por el usuario.
-            switch (opcion) {
-                case 0:
-                    System.out.println("Gracias por usar nuestra aplicación.");
-                    salir = 1;
-                    break;
-                case 1:
-                    System.out.println("Programar un vuelo.");
-                    break;
-                case 9:
-                    System.out.println("\nMostrar número de vuelos programados.");
-                    for (Aerolinea aero : app.aerolineas) {
-                        System.out.println(aero.getNombre() + ": " + aero.vuelosProgramados());
-                    }
-                    System.out.println("\n");
-                    break;
-                case 10:
-                    System.out.println("\nMostrar número de vuelos cancelados.");
-                    for (Aerolinea aero : app.aerolineas) {
-                        System.out.println(aero.getNombre() + ": " + aero.vuelosCancelados());
-                    }
-                    System.out.println("\n");
-                    break;
-                case 11:
-                    System.out.println("\nMostrar número de vuelos en operados.");
-                     for (Aerolinea aero : app.aerolineas) {
-                        System.out.println(aero.getNombre() + ": " + aero.vuelosOperados());
-                    }
-                    System.out.println("\n");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-                    break;
+    public Aerolinea buscarAerolinea(String nombreAerolinea){
+        Aerolinea aerolineaEncontrada = null;
+        for (Aerolinea aerolinea : aerolineas) {
+            if(aerolinea.getNombre().equals(nombreAerolinea)){
+                aerolineaEncontrada = aerolinea;
             }
         }
-
+        return aerolineaEncontrada;
     }
+
+    public CategoriaVuelo buscarCategoriaVuelo(String nombreCategoria){
+        CategoriaVuelo categoriaEncontrada = null;
+        for (CategoriaVuelo categoria : categoriasVuelo) {
+            if(categoria.getNombre().equals(nombreCategoria)){
+                categoriaEncontrada = categoria;
+            }
+        }
+        return categoriaEncontrada;
+    }
+
+    public Piloto buscarPiloto(String licencia){
+        Piloto pilotoEncontrado = null;
+        for (Piloto piloto : pilotos) {
+            if(piloto.getLicencia().equals(licencia)){
+                pilotoEncontrado = piloto;
+            }
+        }
+        return pilotoEncontrado;
+    }
+
+    public Aeropuerto buscarAeropuerto(String nombreAeropuerto){
+        Aeropuerto aeropuertoEncontrado = null;
+        for (Aeropuerto aeropuerto : aeropuertos) {
+            if(aeropuerto.getNombre().equals(nombreAeropuerto)){
+                aeropuertoEncontrado = aeropuerto;
+            }
+        }
+        return aeropuertoEncontrado;
+    }
+
+    public Avion buscarAvion(String referencia){
+        Avion avionEncontrado = null;
+        for (Avion avion : aviones) {
+            if(avion.getReferencia().equals(referencia)){
+                avionEncontrado = avion;
+            }
+        }
+        return avionEncontrado;
+    }
+
 }

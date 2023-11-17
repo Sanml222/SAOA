@@ -10,7 +10,7 @@ import Entidades.Piloto;
 import Entidades.Torre;
 import Entidades.Ubicacion;
 
-public class Main {
+public class main {
 
     public static void main(String[] args) {
         // Creamos objetos básicos para la aplicación.

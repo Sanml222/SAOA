@@ -54,7 +54,15 @@ public class Aeropuerto {
            this.torres.add(nuevaTorre);
        }
 
+       public Torre buscarTorreDisponible(){
 
-    
-    
+        if(this.torres.size() == 0){
+
+            return null;
+        }
+        else{
+
+            return this.torres.get(0);
+        }
+       }  
 }
