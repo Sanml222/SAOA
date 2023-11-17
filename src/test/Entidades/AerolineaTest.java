@@ -2,27 +2,41 @@ package test.Entidades;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import Entidades.Aerolinea;
+import Entidades.Aeropuerto;
+import Entidades.CategoriaVuelo;
+import Entidades.Piloto;
+import Entidades.Torre;
 import Entidades.Vuelo;
 
 /*
     Método a Probar                    | Entrada                | Salida Esperada
     -----------------------------------|------------------------|-----------------
-    testObtenerVuelosListaVacia()      | 0 vuelos registrados   | 0
-    testObtenerVuelos()                | 2 vuelos registrados   | 2
-    testObtenerVuelosErroneos()        | 2 vuelos registrados   | !2
-    testVuelosProgramadosListaVacia()  | 0 vuelos Programados   | 0
-    testVuelosProgramados()            | 2 vuelos Programados   | 2
-    testVuelosProgramadosErroneos()    | 2 vuelos Programados   | !2
-    testVuelosOperadosListaVacia()     | 0 vuelos Operados      | 0
-    testVuelosOperados()               | 1 vuelos Operados      | 1
-    testVuelosOperadosErroneos()       | 1 vuelos Operados      | !1
-    testVuelosCanceladosListaVacia()   | 0 vuelos Operados      | 0
-    testVuelosCancelados()             | 3 vuelos Operados      | 3
-    testVuelosCanceladosErroneos()     | 3 vuelos Operados      | !3
+    testObtenerVuelosListaVacia()          | 0 vuelos registrados   | 0
+    testObtenerVuelos()                    | 2 vuelos registrados   | 2
+    testObtenerVuelosErroneos()            | 2 vuelos registrados   | !2
+    testVuelosProgramadosListaVacia()      | 0 vuelos Programados   | 0
+    testVuelosProgramados()                | 2 vuelos Programados   | 2
+    testVuelosProgramadosErroneos()        | 2 vuelos Programados   | !2
+    testVuelosOperadosListaVacia()         | 0 vuelos Operados      | 0
+    testVuelosOperados()                   | 1 vuelos Operados      | 1
+    testVuelosOperadosErroneos()           | 1 vuelos Operados      | !1
+    testVuelosCanceladosListaVacia()       | 0 vuelos Cancelados    | 0
+    testVuelosCancelados()                 | 3 vuelos Cancelados    | 3
+    testVuelosCanceladosErroneos()         | 3 vuelos Cancelados    | !3
+    testProgramarVuelo()                   | 1 vuelos Programado    | 1
+    testProgramarVueloErrorCategoriaVuelo()| 0 vuelos Programado    | 0
+    testProgramarVueloErrorAeropuertos()   | 0 vuelos Programado    | 0
+    testProgramarVueloErrorFechas()        | 0 vuelos Programado    | 0
+    testProgramarVueloErrorTorres()        | 0 vuelos Programado    | 0
 */
 
 public class AerolineaTest {
@@ -237,6 +251,132 @@ public class AerolineaTest {
 
         assertNotEquals(4, cancelados.size());
     }
-}
+
+    @Test
+    public void testProgramarVuelo() {
+
+        Aerolinea aerolinea1 = new Aerolinea("Avianca");
+        CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
+        Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
+
+        // Creamos Aeropuertos.
+        Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", null);
+        Aeropuerto aeropuerto2 = new Aeropuerto("El Eden", null);
+
+        LocalDateTime fechaHoraDespegue = LocalDateTime.parse("2023-11-17 12:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime fechaHoraAterrizaje = LocalDateTime.parse("2023-11-17 13:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        Torre torre1 = new Torre(1, null, "eldorado@aeropuerto.gov.co", "1234567");
+        Torre torre2 = new Torre(2, null, "eleden@aeropuerto.go.co", "7654321");
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto2.agregarTorre(torre2);
+
+        Vuelo vuelo = aerolinea1.programarVuelo("Nac", categoriaVuelo1, piloto1, "12", null, fechaHoraDespegue, fechaHoraAterrizaje, aeropuerto1, aeropuerto2, torre1, torre2, 123, null);
+        assertNotEquals(null, vuelo);
+        assertEquals(1, aerolinea1.getVuelos().size());
+    }
+
+    @Test
+    public void testProgramarVueloErrorCategoriaVuelo()
+    {
+        Aerolinea aerolinea1 = new Aerolinea("Avianca");
+        CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
+        CategoriaVuelo categoriaVuelo2 = new CategoriaVuelo("Domestico");
+
+        Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
+
+        // Creamos Aeropuertos.
+        Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", null);
+        Aeropuerto aeropuerto2 = new Aeropuerto("El Eden", null);
+
+        LocalDateTime fechaHoraDespegue = LocalDateTime.parse("2023-11-17 12:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime fechaHoraAterrizaje = LocalDateTime.parse("2023-11-17 13:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        Torre torre1 = new Torre(1, null, "eldorado@aeropuerto.gov.co", "1234567");
+        Torre torre2 = new Torre(2, null, "eleden@aeropuerto.go.co", "7654321");
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto2.agregarTorre(torre2);
+
+        Vuelo vuelo = aerolinea1.programarVuelo("Nac", categoriaVuelo2, piloto1, "12", null, fechaHoraDespegue, fechaHoraAterrizaje, aeropuerto1, aeropuerto2, torre1, torre2, 123, null);
+        assertNull(vuelo);
+        assertEquals(0, aerolinea1.getVuelos().size());
+    }
+
+    @Test
+    public void testProgramarVueloErrorAeropuertos()
+    {
+        Aerolinea aerolinea1 = new Aerolinea("Avianca");
+        CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
+
+        Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
+
+        // Creamos Aeropuertos.
+        Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", null);
+        Aeropuerto aeropuerto2 = aeropuerto1;
+
+        LocalDateTime fechaHoraDespegue = LocalDateTime.parse("2023-11-17 12:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime fechaHoraAterrizaje = LocalDateTime.parse("2023-11-17 13:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        Torre torre1 = new Torre(1, null, "eldorado@aeropuerto.gov.co", "1234567");
+        Torre torre2 = new Torre(2, null, "eleden@aeropuerto.go.co", "7654321");
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto2.agregarTorre(torre2);
+
+        Vuelo vuelo = aerolinea1.programarVuelo("Nac", categoriaVuelo1, piloto1, "12", null, fechaHoraDespegue, fechaHoraAterrizaje, aeropuerto1, aeropuerto2, torre1, torre2, 123, null);
+        assertNull(vuelo);
+        assertEquals(0, aerolinea1.getVuelos().size());
+    }
+
+    @Test
+    public void testProgramarVueloErrorFechas()
+    {
+        Aerolinea aerolinea1 = new Aerolinea("Avianca");
+        CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
+
+        Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
+
+        // Creamos Aeropuertos.
+        Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", null);
+        Aeropuerto aeropuerto2 = new Aeropuerto("El Eden", null);
+
+        LocalDateTime fechaHoraDespegue = LocalDateTime.parse("2023-11-17 12:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime fechaHoraAterrizaje = LocalDateTime.parse("2023-11-17 10:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        Torre torre1 = new Torre(1, null, "eldorado@aeropuerto.gov.co", "1234567");
+        Torre torre2 = new Torre(2, null, "eleden@aeropuerto.go.co", "7654321");
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto2.agregarTorre(torre2);
+
+        Vuelo vuelo = aerolinea1.programarVuelo("Nac", categoriaVuelo1, piloto1, "12", null, fechaHoraDespegue, fechaHoraAterrizaje, aeropuerto1, aeropuerto2, torre1, torre2, 123, null);
+        assertNull(vuelo);
+        assertEquals(0, aerolinea1.getVuelos().size());
+    }
+
+    @Test
+    public void testProgramarVueloErrorTorres()
+    {
+        Aerolinea aerolinea1 = new Aerolinea("Avianca");
+        CategoriaVuelo categoriaVuelo1 = new CategoriaVuelo("Comercial");
+
+        Piloto piloto1 = new Piloto("Juan Perez", "123456789", "123456789", categoriaVuelo1);
+
+        // Creamos Aeropuertos.
+        Aeropuerto aeropuerto1 = new Aeropuerto("El Dorado", null);
+        Aeropuerto aeropuerto2 = new Aeropuerto("El Eden", null);
+
+        LocalDateTime fechaHoraDespegue = LocalDateTime.parse("2023-11-17 12:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime fechaHoraAterrizaje = LocalDateTime.parse("2023-11-17 13:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        Torre torre1 = new Torre(1, null, "eldorado@aeropuerto.gov.co", "1234567");
+        Torre torre2 = new Torre(2, null, "eleden@aeropuerto.go.co", "7654321");
+        aeropuerto1.agregarTorre(torre1);
+        aeropuerto1.agregarTorre(torre2);
+
+        Vuelo vuelo = aerolinea1.programarVuelo("Nac", categoriaVuelo1, piloto1, "12", null, fechaHoraDespegue, fechaHoraAterrizaje, aeropuerto1, aeropuerto2, torre1, torre2, 123, null);
+        assertNull(vuelo);
+        assertEquals(0, aerolinea1.getVuelos().size());
+    }
+
+ }
 
   
