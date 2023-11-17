@@ -8,7 +8,7 @@ import Entidades.Avion;
 import Entidades.CategoriaVuelo;
 import Entidades.Piloto;
 import Entidades.Torre;
-import Entidades.Ubicacion;
+
 
 public class main {
 
@@ -33,7 +33,7 @@ public class main {
 
             // Solicitamos la opción al usuario.
             Scanner scanner = new Scanner(System.in);
-            scanner.useDelimiter("\n");
+            
             System.out.println("Ingrese la opción: ");
             int opcion = scanner.nextInt();
 
@@ -46,7 +46,7 @@ public class main {
                 case 1:
                     System.out.println("\nProgramar un vuelo.");
                     Scanner info = new Scanner(System.in);
-                    info.useDelimiter("\n");
+                    //info.useDelimiter("\n");
 
                     System.out.println("Ingrese nombre de la aerolinea: ");
                     String nombreAerolinea = info.nextLine();

@@ -164,7 +164,8 @@ public class Vuelo {
         this.avion = avion;
     }
 
-    
-
-    
+    public String toString()
+    {
+        return "Vuelo " + this.origen.getNombre() + " - " + this.destino.getNombre() + " " + this.fechaDespegue + " > " + this.fechaAterrizaje;
+    }    
 }
